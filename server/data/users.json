@@ -1,0 +1,35 @@
+[
+  {
+    "id": "u_admin_001",
+    "email": "admin@example.com",
+    "nickname": "平台管理员",
+    "role": "admin",
+    "plan": "vip",
+    "status": "active",
+    "createdAt": "2026-03-27T11:44:20.768Z",
+    "updatedAt": "2026-03-27T11:44:20.768Z",
+    "passwordHash": "0efcc813468089595501dbdc9e250ce0:b5957a3e6c8b22f13f418465e15454ad5dac1e47b27a16979357c321da238a484f619036fc18db53de30216025907caa6085e0625dc22f0da3ef237800a9fc3c"
+  },
+  {
+    "id": "u_reviewer_001",
+    "email": "reviewer@example.com",
+    "nickname": "审核员小李",
+    "role": "reviewer",
+    "plan": "free",
+    "status": "active",
+    "createdAt": "2026-03-27T11:44:20.768Z",
+    "updatedAt": "2026-03-27T11:44:20.768Z",
+    "passwordHash": "91244130ed031b8eb53ad2938714fa57:1ea2de03e4170f34b7cd78c3a61ce8636fa166e6283ac46c029510eb8140380c2f53c9467c4d535c199addef9506717498b8cfc2416cbbd737b83f10beff0974"
+  },
+  {
+    "id": "u_c16938bcb310",
+    "email": "aravelo@qq.com",
+    "nickname": "aoa",
+    "role": "reviewer",
+    "plan": "free",
+    "status": "active",
+    "createdAt": "2026-03-27T13:49:16.049Z",
+    "updatedAt": "2026-03-27T13:49:16.049Z",
+    "passwordHash": "d38c3de5c67a13071dd1fd255a77bc03:f58a642a968f4f5c7d6c2d2388cc9d098fbe6628b3ff1d07c0b10470b4c5e1bb7e904e371575cdf319be2a34490ca8271e9b44b39070d1235120823aa1581b92"
+  }
+]
