@@ -1,1 +1,0 @@
-import{r as s}from"./index-CxB1Tdqm.js";async function t(o){return s("/imports/weibo/web-session-comments",{method:"POST",body:o})}async function i(){return s("/imports/submissions",{method:"GET"})}export{i as f,t as i};

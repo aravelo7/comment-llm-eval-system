@@ -1,1 +1,0 @@
-import{j as t}from"./index-CxB1Tdqm.js";import{a2 as o}from"./antd-vendor-520lbnz3.js";function p({description:s,minHeight:m=180}){return t.jsx("div",{className:"empty-block",style:{minHeight:m},children:t.jsx(o,{description:s})})}export{p as E};

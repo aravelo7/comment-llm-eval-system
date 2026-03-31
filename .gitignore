@@ -1,0 +1,29 @@
+# frontend
+frontend/node_modules/
+frontend/dist/
+node_modules/
+dist/
+
+# typescript
+*.tsbuildinfo
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# env
+.env
+.env.*
+
+# data outputs
+data/outputs/
+data/labeled/
+data/raw/comments_unzipped/
+
+# editor / system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
