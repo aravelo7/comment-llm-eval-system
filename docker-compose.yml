@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  auth:
+    build: ./backend/auth
+    ports:
+      - "8787:8787"
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - auth

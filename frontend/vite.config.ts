@@ -8,15 +8,15 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/auth': {
-        target: 'http://127.0.0.1:8787',
+        target: 'http://auth:8787',
         changeOrigin: true,
       },
       '/health': {
-        target: 'http://127.0.0.1:8787',
+        target: 'http://auth:8787',
         changeOrigin: true,
       },
       '/imports': {
-        target: 'http://127.0.0.1:8787',
+        target: 'http://auth:8787',
         changeOrigin: true,
       },
     },
