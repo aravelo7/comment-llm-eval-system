@@ -15,8 +15,8 @@ import type { AppMenuItem } from '../../types/menu';
 export const appMenuItems: AppMenuItem[] = [
   {
     key: 'dashboard',
-    label: '控制台',
-    path: '/dashboard',
+    label: '首页',
+    path: '/',
     icon: <DashboardOutlined />,
   },
   {

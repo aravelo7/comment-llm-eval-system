@@ -1,6 +1,6 @@
 import { Spin } from 'antd';
 import { lazy, Suspense } from 'react';
-import { Navigate, createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
 import { AppLayout } from '../layout';
 import { GuestRoute } from '../../features/auth/components/GuestRoute';
@@ -115,7 +115,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/dashboard" replace />,
+        element: withSuspense(<DashboardPage />),
       },
       {
         path: 'dashboard',

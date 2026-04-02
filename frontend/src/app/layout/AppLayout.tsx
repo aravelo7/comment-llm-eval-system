@@ -23,9 +23,14 @@ export function AppLayout() {
   const hasUnsavedChanges = useRuleStore((state) => state.hasUnsavedChanges);
 
   const selectedKeys = useMemo(() => {
-    const match = appMenuItems.find((item) =>
-      location.pathname.startsWith(item.path),
-    );
+    const match = appMenuItems.find((item) => {
+      if (item.key === 'dashboard') {
+        return location.pathname === '/' || location.pathname.startsWith('/dashboard');
+      }
+
+      return location.pathname.startsWith(item.path);
+    });
+
     return match ? [match.key] : ['dashboard'];
   }, [location.pathname]);
 
@@ -71,7 +76,7 @@ export function AppLayout() {
           {!collapsed ? (
             <div>
               <Typography.Text strong className="app-logo__title">
-                Bot 审稿工作台
+                Bot 审核工作台
               </Typography.Text>
               <div className="app-logo__subtitle">Review Admin</div>
             </div>
@@ -102,7 +107,7 @@ export function AppLayout() {
             <div className="app-shell__search">
               <Input
                 prefix={<SearchOutlined />}
-                placeholder="搜索投稿、规则、插件"
+                placeholder="搜索提交、规则、插件"
                 allowClear
               />
             </div>

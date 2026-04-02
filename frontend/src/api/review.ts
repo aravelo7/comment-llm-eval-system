@@ -8,7 +8,7 @@ export type ReviewLabRequest = {
     content: string;
     platform: string;
     metadata: {
-      sourceType: 'frontend_lab';
+      sourceType: 'frontend_lab' | 'dashboard';
     };
   };
   policy: {
