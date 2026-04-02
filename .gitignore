@@ -27,3 +27,8 @@ data/raw/comments_unzipped/
 .idea/
 .DS_Store
 Thumbs.db
+
+# review-eval outputs（只保留基线）
+tools/review-eval/outputs/*
+!tools/review-eval/outputs/.gitkeep
+!tools/review-eval/outputs/baseline_free_100.json

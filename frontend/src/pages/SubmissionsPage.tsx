@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { PageContainer, SectionCard } from '../components';
-import { fetchImportedSubmissions, platformAdapters } from '../features/platforms';
+import { fetchImportedMessages, platformAdapters } from '../features/platforms';
 import { buildSubmissionDataFromItems, buildSubmissionMockData } from '../mock/submissions';
 import { useRuleStore } from '../store/ruleStore';
 import type {
@@ -25,6 +25,7 @@ import {
 } from './submissions';
 
 type SubmissionFilterValues = {
+  jobId?: string;
   keyword?: string;
   source_plugin_name?: string;
   platform?: SubmissionItem['platform'];
@@ -105,7 +106,7 @@ export function SubmissionsPage() {
 
     async function loadImportedSubmissions() {
       try {
-        const result = await fetchImportedSubmissions();
+        const result = await fetchImportedMessages();
         if (disposed) {
           return;
         }
@@ -186,6 +187,8 @@ export function SubmissionsPage() {
         item.authorName.toLowerCase().includes(keyword);
 
       return (
+        (!filters.jobId ||
+          String(item.platformMetadata.importJobId || '') === filters.jobId) &&
         keywordMatched &&
         (!filters.source_plugin_name || item.source_plugin_name === filters.source_plugin_name) &&
         (!filters.platform || item.platform === filters.platform) &&

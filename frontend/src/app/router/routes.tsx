@@ -49,6 +49,16 @@ const SettingsPage = lazy(() =>
     default: module.SettingsPage,
   })),
 );
+const ReviewLabPage = lazy(() =>
+  import('../../pages/ReviewLabPage').then((module) => ({
+    default: module.ReviewLabPage,
+  })),
+);
+const WeiboManualImportPage = lazy(() =>
+  import('../../pages/WeiboManualImportPage').then((module) => ({
+    default: module.WeiboManualImportPage,
+  })),
+);
 
 function withSuspense(element: React.ReactNode) {
   return (
@@ -120,12 +130,20 @@ export const router = createBrowserRouter([
         element: withSuspense(<RulesPage />),
       },
       {
+        path: 'review-lab',
+        element: withSuspense(<ReviewLabPage />),
+      },
+      {
         path: 'plugins',
         element: withSuspense(<PluginsPage />),
       },
       {
         path: 'plugins/:platform',
         element: withSuspense(<PluginConfigPage />),
+      },
+      {
+        path: 'imports/weibo/manual',
+        element: withSuspense(<WeiboManualImportPage />),
       },
       {
         path: 'security',

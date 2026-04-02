@@ -19,6 +19,14 @@ export default defineConfig({
         target: 'http://auth:8787',
         changeOrigin: true,
       },
+      '/api': {
+        target: 'http://auth:8787',
+        changeOrigin: true,
+      },
+      '/review': {
+        target: 'http://review:8790',
+        changeOrigin: true,
+      },
     },
   },
   build: {

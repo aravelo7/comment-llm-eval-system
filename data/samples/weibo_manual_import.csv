@@ -1,0 +1,4 @@
+﻿conversation_id,msg_id,direction,sender,content,time
+conv_001,m001,inbound,用户A,你好，这篇稿子存在事实错误。请发到 13800138000 或 test@example.com 联系我。,2026-04-01 10:00:00
+conv_001,m002,outbound,我,收到，我会复核。详见 https://example.com/review,2026-04-01 10:05:00
+conv_002,m003,inbound,用户B,这条内容涉嫌推广，加微信 vx123456 处理。,2026-04-01 11:20:00

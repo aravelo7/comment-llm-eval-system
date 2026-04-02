@@ -107,6 +107,7 @@ export type SubmissionItem = UnifiedContentItem & {
 export type SubmissionSortField = 'publishTime' | 'quality_score';
 
 export type SubmissionSearchParamsState = {
+  jobId?: string;
   keyword?: string;
   source_plugin_name?: string;
   platform?: PlatformKey;

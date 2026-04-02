@@ -1,11 +1,11 @@
+import { recordAuthEvent } from './audit';
 import { apiBaseUrl } from './config';
 import { buildLoginRedirect, isPublicAuthPath } from './redirect';
-import { recordAuthEvent } from './audit';
 import { clearSession } from './storage';
 import { ApiError } from './types';
 
 type RequestOptions = {
-  method?: 'GET' | 'POST';
+  method?: 'GET' | 'POST' | 'DELETE';
   body?: Record<string, unknown>;
   credentials?: RequestCredentials;
   suppress401Redirect?: boolean;
@@ -65,10 +65,18 @@ export async function requestJson<T>(path: string, options: RequestOptions = {})
   });
 
   if (!response.ok) {
+    let responseMessage = '';
+    try {
+      const payload = (await response.clone().json()) as { message?: string };
+      responseMessage = typeof payload.message === 'string' ? payload.message : '';
+    } catch {
+      responseMessage = '';
+    }
+
     const safeMessage =
       response.status === 401 && options.unauthorizedMessage
         ? options.unauthorizedMessage
-        : getSafeErrorMessage(response.status);
+        : responseMessage || getSafeErrorMessage(response.status);
 
     if (response.status === 401) {
       clearSession();

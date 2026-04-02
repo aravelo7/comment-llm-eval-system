@@ -1,0 +1,39 @@
+{
+  "platform": "weibo",
+  "owner_account": "test_user",
+  "conversations": [
+    {
+      "conversation_id": "conv_001",
+      "peer_name": "用户A",
+      "messages": [
+        {
+          "msg_id": "m001",
+          "direction": "inbound",
+          "sender": "用户A",
+          "content": "你好，这篇稿子存在事实错误。请发到 13800138000 或 test@example.com 联系我。",
+          "time": "2026-04-01 10:00:00"
+        },
+        {
+          "msg_id": "m002",
+          "direction": "outbound",
+          "sender": "我",
+          "content": "收到，我会复核。详见 https://example.com/review",
+          "time": "2026-04-01 10:05:00"
+        }
+      ]
+    },
+    {
+      "conversation_id": "conv_002",
+      "peer_name": "用户B",
+      "messages": [
+        {
+          "msg_id": "m003",
+          "direction": "inbound",
+          "sender": "用户B",
+          "content": "这条内容涉嫌推广，加微信 vx123456 处理。",
+          "time": "2026-04-01 11:20:00"
+        }
+      ]
+    }
+  ]
+}

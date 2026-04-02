@@ -6,9 +6,31 @@ services:
     ports:
       - "8787:8787"
 
+  review:
+    build: ./backend/review
+    ports:
+      - "8790:8790"
+    environment:
+      - REVIEW_PORT=8790
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - FREE_REVIEW_MODEL=qwen2.5:7b
+      - VIP_MODEL_NAME=reserved-premium-model
+    depends_on:
+      - ollama
+
   frontend:
     build: ./frontend
     ports:
       - "5173:5173"
     depends_on:
       - auth
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  ollama_data:

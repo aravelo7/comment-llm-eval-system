@@ -1,6 +1,8 @@
 import {
   AuditOutlined,
   DashboardOutlined,
+  ExperimentOutlined,
+  InboxOutlined,
   SafetyCertificateOutlined,
   SettingOutlined,
   SlidersOutlined,
@@ -19,7 +21,7 @@ export const appMenuItems: AppMenuItem[] = [
   },
   {
     key: 'submissions',
-    label: '投稿管理',
+    label: '审核列表',
     path: '/submissions',
     icon: <UnorderedListOutlined />,
   },
@@ -30,10 +32,22 @@ export const appMenuItems: AppMenuItem[] = [
     icon: <SlidersOutlined />,
   },
   {
+    key: 'review-lab',
+    label: '审稿联调',
+    path: '/review-lab',
+    icon: <ExperimentOutlined />,
+  },
+  {
     key: 'plugins',
     label: '插件中心',
     path: '/plugins',
     icon: <TagsOutlined />,
+  },
+  {
+    key: 'weibo-manual-import',
+    label: '微博私信导入',
+    path: '/imports/weibo/manual',
+    icon: <InboxOutlined />,
   },
   {
     key: 'security',
@@ -43,7 +57,7 @@ export const appMenuItems: AppMenuItem[] = [
   },
   {
     key: 'audit',
-    label: '日志与审计',
+    label: '日志审计',
     path: '/audit',
     icon: <AuditOutlined />,
   },

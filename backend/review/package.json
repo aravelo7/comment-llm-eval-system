@@ -1,0 +1,19 @@
+{
+  "name": "review-service",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js",
+    "review:dev-eval": "node ../../tools/review-eval/dev-review-eval.js --plan=free",
+    "review:dev-eval:vip": "node ../../tools/review-eval/dev-review-eval.js --plan=vip",
+    "review:eval": "node ../../tools/review-eval/run-review-eval.js --plan=free",
+    "review:eval:vip": "node ../../tools/review-eval/run-review-eval.js --plan=vip",
+    "review:eval:summary": "node ../../tools/review-eval/summarize-review-eval.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2"
+  }
+}

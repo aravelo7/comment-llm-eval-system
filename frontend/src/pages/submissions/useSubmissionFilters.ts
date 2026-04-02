@@ -19,6 +19,7 @@ type UseSubmissionFiltersOptions = {
 };
 
 export type SubmissionFilterValues = {
+  jobId?: string;
   keyword?: string;
   source_plugin_name?: string;
   platform?: PlatformKey;
@@ -71,6 +72,7 @@ export function useSubmissionFilters({
 }: UseSubmissionFiltersOptions) {
   const filters = useMemo<SubmissionFilterValues>(
     () => ({
+      jobId: searchParams.get('jobId') ?? undefined,
       keyword: searchParams.get('keyword') ?? undefined,
       source_plugin_name: searchParams.get('source_plugin_name') ?? undefined,
       platform: (searchParams.get('platform') as PlatformKey | null) ?? undefined,
@@ -86,6 +88,7 @@ export function useSubmissionFilters({
   const formInitialValues = useMemo<SubmissionFilterValues>(
     () => ({
       keyword: filters.keyword,
+      jobId: filters.jobId,
       source_plugin_name: filters.source_plugin_name,
       platform: filters.platform,
       channel: filters.channel,
@@ -100,6 +103,7 @@ export function useSubmissionFilters({
   function applyFilters(values: SubmissionFilterValues) {
     updateSearchParams(searchParams, setSearchParams, {
       keyword: values.keyword?.trim() || undefined,
+      jobId: values.jobId,
       source_plugin_name: values.source_plugin_name,
       platform: values.platform,
       channel: values.channel,
@@ -115,6 +119,7 @@ export function useSubmissionFilters({
   function resetFilters() {
     updateSearchParams(searchParams, setSearchParams, {
       keyword: undefined,
+      jobId: undefined,
       source_plugin_name: undefined,
       platform: undefined,
       channel: undefined,
@@ -143,6 +148,7 @@ export function getSearchParamsState(searchParams: URLSearchParams): SubmissionS
 
   return {
     keyword: searchParams.get('keyword') ?? undefined,
+    jobId: searchParams.get('jobId') ?? undefined,
     source_plugin_name: searchParams.get('source_plugin_name') ?? undefined,
     platform: (searchParams.get('platform') as PlatformKey | null) ?? undefined,
     channel: (searchParams.get('channel') as PlatformChannel | null) ?? undefined,

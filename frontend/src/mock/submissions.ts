@@ -105,6 +105,17 @@ export function buildSubmissionDataFromItems(
   rules: RuleConfig = useRuleStore.getState().getRules(),
 ): SubmissionItem[] {
   return records.map((record, index) => {
+    const manualImportReview =
+      record.platformMetadata.manualImportReview &&
+      typeof record.platformMetadata.manualImportReview === 'object'
+        ? (record.platformMetadata.manualImportReview as {
+            decision?: 'approve' | 'rejected' | 'manual_review';
+            riskLevel?: RiskLevel;
+            score?: number;
+            comment?: string;
+            needsHumanReview?: boolean;
+          })
+        : null;
     const baseReview = evaluateSubmissionByRules(record, rules, {
       hasImage: record.attachments.some((item) => item.type === 'image'),
       hasExternalLink: /https?:\/\/|www\./i.test(record.contentText),
@@ -123,20 +134,31 @@ export function buildSubmissionDataFromItems(
           : '评论区内容默认只展示纯文本，不渲染平台返回的 HTML。',
     } as const;
 
-    const mergedStatus =
+    let mergedStatus =
       securityRiskLevel === 'high' && baseReview.review_status === 'approved'
         ? 'manual_review'
         : baseReview.review_status;
-    const mergedRiskLevel =
+    let mergedRiskLevel =
       securityRiskLevel === 'high'
         ? 'high'
         : baseReview.risk_level === 'low' && securityRiskLevel === 'medium'
           ? 'medium'
           : baseReview.risk_level;
-    const qualityScore = Math.max(
+    let qualityScore = Math.max(
       18,
       94 - baseReview.matched_rules.length * 7 - (record.channel === 'private_message' ? 8 : 0),
     );
+
+    if (manualImportReview) {
+      mergedStatus =
+        manualImportReview.decision === 'approve'
+          ? 'approved'
+          : manualImportReview.decision === 'rejected'
+            ? 'rejected'
+            : 'manual_review';
+      mergedRiskLevel = manualImportReview.riskLevel || mergedRiskLevel;
+      qualityScore = manualImportReview.score || qualityScore;
+    }
 
     const baseTime = dayjs(record.publishTime);
     const adapter = getPlatformAdapter(record.platform);
@@ -154,7 +176,7 @@ export function buildSubmissionDataFromItems(
       content_preview: getPreview(record.contentText),
       review_status: mergedStatus,
       moderationStatus: mergedStatus,
-      moderationReason: baseReview.reasons[0],
+      moderationReason: manualImportReview?.comment || baseReview.reasons[0],
       risk_level: mergedRiskLevel,
       quality_score: qualityScore,
       decision_suggestion:
@@ -165,7 +187,7 @@ export function buildSubmissionDataFromItems(
             : 'approve',
       matched_rules: baseReview.matched_rules,
       matched_rule_details: baseReview.matched_rule_details,
-      reasons: baseReview.reasons,
+      reasons: manualImportReview?.comment ? [manualImportReview.comment, ...baseReview.reasons] : baseReview.reasons,
       reviewTrace: [
         {
           step: 'normalize',

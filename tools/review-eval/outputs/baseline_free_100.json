@@ -1,0 +1,2642 @@
+{
+  "meta": {
+    "generated_at": "2026-04-02T09:01:26.633Z",
+    "base_url": "http://127.0.0.1:8790",
+    "request_url": "http://127.0.0.1:8790/review/run",
+    "plan": "free",
+    "dataset_path": "D:\\Projects\\comment-llm-eval-system\\tools\\review-eval\\dataset\\review_samples.json",
+    "total_samples": 20
+  },
+  "summary": {
+    "total": 20,
+    "request_succeeded": 20,
+    "request_failed": 0,
+    "assertion_passed": 20,
+    "assertion_failed": 0
+  },
+  "records": [
+    {
+      "sample": {
+        "id": "case_001",
+        "category": "normal",
+        "content": "发货速度挺快，包装也还行。",
+        "platform": "weibo",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "approve"
+          ],
+          "must_include_rule_codes": [],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            false,
+            true
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_001",
+          "content": "发货速度挺快，包装也还行。",
+          "platform": "weibo",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_001",
+          "decision": "approve",
+          "risk_score": 10,
+          "confidence": 0.8,
+          "labels": [],
+          "reason": "普通中性评价，无明显风险信号。",
+          "evidence": [],
+          "needs_human_review": false,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": []
+        }
+      },
+      "result": {
+        "submission_id": "case_001",
+        "decision": "approve",
+        "risk_score": 10,
+        "confidence": 0.8,
+        "labels": [],
+        "reason": "普通中性评价，无明显风险信号。",
+        "evidence": [],
+        "needs_human_review": false,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": []
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=approve expected in [approve]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes []",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=false expected in [false,true]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_002",
+        "category": "normal",
+        "content": "整体中规中矩，没什么惊喜，也没踩雷。",
+        "platform": "xiaohongshu",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "approve"
+          ],
+          "must_include_rule_codes": [],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            false,
+            true
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_002",
+          "content": "整体中规中矩，没什么惊喜，也没踩雷。",
+          "platform": "xiaohongshu",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_002",
+          "decision": "approve",
+          "risk_score": 20,
+          "confidence": 0.8,
+          "labels": [],
+          "reason": "普通中性评价，未见明显违规内容。",
+          "evidence": [],
+          "needs_human_review": false,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": []
+        }
+      },
+      "result": {
+        "submission_id": "case_002",
+        "decision": "approve",
+        "risk_score": 20,
+        "confidence": 0.8,
+        "labels": [],
+        "reason": "普通中性评价，未见明显违规内容。",
+        "evidence": [],
+        "needs_human_review": false,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": []
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=approve expected in [approve]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes []",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=false expected in [false,true]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_003",
+        "category": "negative_feedback",
+        "content": "产品一般，做工不太值这个价。",
+        "platform": "weibo",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "approve",
+            "review"
+          ],
+          "must_include_rule_codes": [],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            false,
+            true
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_003",
+          "content": "产品一般，做工不太值这个价。",
+          "platform": "weibo",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_003",
+          "decision": "approve",
+          "risk_score": 20,
+          "confidence": 0.8,
+          "labels": [],
+          "reason": "普通差评，无明显辱骂、攻击、引战等高风险信号。",
+          "evidence": [],
+          "needs_human_review": false,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": []
+        }
+      },
+      "result": {
+        "submission_id": "case_003",
+        "decision": "approve",
+        "risk_score": 20,
+        "confidence": 0.8,
+        "labels": [],
+        "reason": "普通差评，无明显辱骂、攻击、引战等高风险信号。",
+        "evidence": [],
+        "needs_human_review": false,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": []
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=approve expected in [approve,review]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes []",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=false expected in [false,true]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_004",
+        "category": "negative_feedback",
+        "content": "客服回复有点慢，售后体验不太好，但问题最后解决了。",
+        "platform": "douban",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "approve",
+            "review"
+          ],
+          "must_include_rule_codes": [],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            false,
+            true
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_004",
+          "content": "客服回复有点慢，售后体验不太好，但问题最后解决了。",
+          "platform": "douban",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_004",
+          "decision": "approve",
+          "risk_score": 20,
+          "confidence": 0.8,
+          "labels": [],
+          "reason": "普通差评，无明显辱骂、人身攻击、引战、广告引流等高风险信号。",
+          "evidence": [],
+          "needs_human_review": false,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": []
+        }
+      },
+      "result": {
+        "submission_id": "case_004",
+        "decision": "approve",
+        "risk_score": 20,
+        "confidence": 0.8,
+        "labels": [],
+        "reason": "普通差评，无明显辱骂、人身攻击、引战、广告引流等高风险信号。",
+        "evidence": [],
+        "needs_human_review": false,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": []
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=approve expected in [approve,review]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes []",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=false expected in [false,true]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_005",
+        "category": "abuse",
+        "content": "这个产品真垃圾，客服像死人一样，大家别买了。",
+        "platform": "weibo",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "review",
+            "reject"
+          ],
+          "must_include_rule_codes": [
+            "ABUSE_WORD"
+          ],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            true,
+            false
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_005",
+          "content": "这个产品真垃圾，客服像死人一样，大家别买了。",
+          "platform": "weibo",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_005",
+          "decision": "review",
+          "risk_score": 50,
+          "confidence": 0.5,
+          "labels": [],
+          "reason": "",
+          "evidence": [],
+          "needs_human_review": true,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": [
+            {
+              "code": "ABUSE_WORD",
+              "severity": "medium",
+              "message": "命中侮辱性词汇",
+              "evidence": [
+                "垃圾",
+                "死人",
+                "死人一样"
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "submission_id": "case_005",
+        "decision": "review",
+        "risk_score": 50,
+        "confidence": 0.5,
+        "labels": [],
+        "reason": "",
+        "evidence": [],
+        "needs_human_review": true,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": [
+          {
+            "code": "ABUSE_WORD",
+            "severity": "medium",
+            "message": "命中侮辱性词汇",
+            "evidence": [
+              "垃圾",
+              "死人",
+              "死人一样"
+            ]
+          }
+        ]
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=review expected in [review,reject]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes [ABUSE_WORD]",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=true expected in [true,false]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_006",
+        "category": "abuse",
+        "content": "你们这客服是废物吧，解释半天也没一句人话。",
+        "platform": "bilibili",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "review",
+            "reject"
+          ],
+          "must_include_rule_codes": [
+            "ABUSE_WORD"
+          ],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            true,
+            false
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_006",
+          "content": "你们这客服是废物吧，解释半天也没一句人话。",
+          "platform": "bilibili",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_006",
+          "decision": "review",
+          "risk_score": 50,
+          "confidence": 0.5,
+          "labels": [],
+          "reason": "",
+          "evidence": [
+            "废物"
+          ],
+          "needs_human_review": true,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": [
+            {
+              "code": "ABUSE_WORD",
+              "severity": "medium",
+              "message": "命中侮辱性词汇",
+              "evidence": [
+                "废物"
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "submission_id": "case_006",
+        "decision": "review",
+        "risk_score": 50,
+        "confidence": 0.5,
+        "labels": [],
+        "reason": "",
+        "evidence": [
+          "废物"
+        ],
+        "needs_human_review": true,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": [
+          {
+            "code": "ABUSE_WORD",
+            "severity": "medium",
+            "message": "命中侮辱性词汇",
+            "evidence": [
+              "废物"
+            ]
+          }
+        ]
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=review expected in [review,reject]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes [ABUSE_WORD]",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=true expected in [true,false]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_007",
+        "category": "promo_contact",
+        "content": "加我微信聊，vx:abc123，有资源。",
+        "platform": "weibo",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "review",
+            "reject"
+          ],
+          "must_include_rule_codes": [
+            "PROMO_CONTACT"
+          ],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            true,
+            false
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_007",
+          "content": "加我微信聊，vx:abc123，有资源。",
+          "platform": "weibo",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_007",
+          "decision": "review",
+          "risk_score": 50,
+          "confidence": 0.5,
+          "labels": [],
+          "reason": "",
+          "evidence": [
+            "vx:abc123"
+          ],
+          "needs_human_review": true,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": [
+            {
+              "code": "PROMO_CONTACT",
+              "severity": "high",
+              "message": "命中疑似引流或联系方式",
+              "evidence": [
+                "vx",
+                "vx:",
+                "微信"
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "submission_id": "case_007",
+        "decision": "review",
+        "risk_score": 50,
+        "confidence": 0.5,
+        "labels": [],
+        "reason": "",
+        "evidence": [
+          "vx:abc123"
+        ],
+        "needs_human_review": true,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": [
+          {
+            "code": "PROMO_CONTACT",
+            "severity": "high",
+            "message": "命中疑似引流或联系方式",
+            "evidence": [
+              "vx",
+              "vx:",
+              "微信"
+            ]
+          }
+        ]
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=review expected in [review,reject]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes [PROMO_CONTACT]",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=true expected in [true,false]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_008",
+        "category": "promo_contact",
+        "content": "想进群的私聊我，微信同号，给你发优惠信息。",
+        "platform": "tieba",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "review",
+            "reject"
+          ],
+          "must_include_rule_codes": [
+            "PROMO_CONTACT"
+          ],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            true,
+            false
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_008",
+          "content": "想进群的私聊我，微信同号，给你发优惠信息。",
+          "platform": "tieba",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_008",
+          "decision": "review",
+          "risk_score": 50,
+          "confidence": 0.5,
+          "labels": [],
+          "reason": "",
+          "evidence": [
+            "微信",
+            "私聊我"
+          ],
+          "needs_human_review": true,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": [
+            {
+              "code": "PROMO_CONTACT",
+              "severity": "high",
+              "message": "命中疑似引流或联系方式",
+              "evidence": [
+                "微信",
+                "私聊我"
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "submission_id": "case_008",
+        "decision": "review",
+        "risk_score": 50,
+        "confidence": 0.5,
+        "labels": [],
+        "reason": "",
+        "evidence": [
+          "微信",
+          "私聊我"
+        ],
+        "needs_human_review": true,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": [
+          {
+            "code": "PROMO_CONTACT",
+            "severity": "high",
+            "message": "命中疑似引流或联系方式",
+            "evidence": [
+              "微信",
+              "私聊我"
+            ]
+          }
+        ]
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=review expected in [review,reject]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes [PROMO_CONTACT]",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=true expected in [true,false]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_009",
+        "category": "external_link",
+        "content": "详情看 www.example.com，写得比这里清楚。",
+        "platform": "weibo",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "review",
+            "reject"
+          ],
+          "must_include_rule_codes": [
+            "EXTERNAL_LINK"
+          ],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            true,
+            false
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_009",
+          "content": "详情看 www.example.com，写得比这里清楚。",
+          "platform": "weibo",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_009",
+          "decision": "review",
+          "risk_score": 50,
+          "confidence": 0.5,
+          "labels": [],
+          "reason": "",
+          "evidence": [
+            "详情看 www.example.com，写得比这里清楚。"
+          ],
+          "needs_human_review": true,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": [
+            {
+              "code": "EXTERNAL_LINK",
+              "severity": "medium",
+              "message": "命中疑似外链信息",
+              "evidence": [
+                "www.example.com，写得比这里清楚。",
+                "www.example.com"
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "submission_id": "case_009",
+        "decision": "review",
+        "risk_score": 50,
+        "confidence": 0.5,
+        "labels": [],
+        "reason": "",
+        "evidence": [
+          "详情看 www.example.com，写得比这里清楚。"
+        ],
+        "needs_human_review": true,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": [
+          {
+            "code": "EXTERNAL_LINK",
+            "severity": "medium",
+            "message": "命中疑似外链信息",
+            "evidence": [
+              "www.example.com，写得比这里清楚。",
+              "www.example.com"
+            ]
+          }
+        ]
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=review expected in [review,reject]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes [EXTERNAL_LINK]",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=true expected in [true,false]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_010",
+        "category": "external_link",
+        "content": "官方说明在 https://help.example.cn/notice，建议先看看。",
+        "platform": "zhihu",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "review",
+            "reject"
+          ],
+          "must_include_rule_codes": [
+            "EXTERNAL_LINK"
+          ],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            true,
+            false
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_010",
+          "content": "官方说明在 https://help.example.cn/notice，建议先看看。",
+          "platform": "zhihu",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_010",
+          "decision": "review",
+          "risk_score": 50,
+          "confidence": 0.5,
+          "labels": [],
+          "reason": "",
+          "evidence": [
+            "https://help.example.cn/notice，建议先看看。",
+            "help.example.cn"
+          ],
+          "needs_human_review": true,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": [
+            {
+              "code": "EXTERNAL_LINK",
+              "severity": "medium",
+              "message": "命中疑似外链信息",
+              "evidence": [
+                "https://help.example.cn/notice，建议先看看。",
+                "help.example.cn"
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "submission_id": "case_010",
+        "decision": "review",
+        "risk_score": 50,
+        "confidence": 0.5,
+        "labels": [],
+        "reason": "",
+        "evidence": [
+          "https://help.example.cn/notice，建议先看看。",
+          "help.example.cn"
+        ],
+        "needs_human_review": true,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": [
+          {
+            "code": "EXTERNAL_LINK",
+            "severity": "medium",
+            "message": "命中疑似外链信息",
+            "evidence": [
+              "https://help.example.cn/notice，建议先看看。",
+              "help.example.cn"
+            ]
+          }
+        ]
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=review expected in [review,reject]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes [EXTERNAL_LINK]",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=true expected in [true,false]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_011",
+        "category": "conflict_incitement",
+        "content": "大家一起去冲他，给我狠狠骂，别让他装没事。",
+        "platform": "weibo",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "review",
+            "reject"
+          ],
+          "must_include_rule_codes": [
+            "CONFLICT_INCITEMENT"
+          ],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            true,
+            false
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_011",
+          "content": "大家一起去冲他，给我狠狠骂，别让他装没事。",
+          "platform": "weibo",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_011",
+          "decision": "review",
+          "risk_score": 50,
+          "confidence": 0.5,
+          "labels": [],
+          "reason": "",
+          "evidence": [],
+          "needs_human_review": true,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": [
+            {
+              "code": "CONFLICT_INCITEMENT",
+              "severity": "high",
+              "message": "命中疑似引战或煝动性表达",
+              "evidence": [
+                "大家一起",
+                "冲他"
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "submission_id": "case_011",
+        "decision": "review",
+        "risk_score": 50,
+        "confidence": 0.5,
+        "labels": [],
+        "reason": "",
+        "evidence": [],
+        "needs_human_review": true,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": [
+          {
+            "code": "CONFLICT_INCITEMENT",
+            "severity": "high",
+            "message": "命中疑似引战或煝动性表达",
+            "evidence": [
+              "大家一起",
+              "冲他"
+            ]
+          }
+        ]
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=review expected in [review,reject]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes [CONFLICT_INCITEMENT]",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=true expected in [true,false]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_012",
+        "category": "conflict_incitement",
+        "content": "这号一直带节奏，大家一起抵制，去骂到他删帖。",
+        "platform": "tieba",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "review",
+            "reject"
+          ],
+          "must_include_rule_codes": [
+            "CONFLICT_INCITEMENT"
+          ],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            true,
+            false
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_012",
+          "content": "这号一直带节奏，大家一起抵制，去骂到他删帖。",
+          "platform": "tieba",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_012",
+          "decision": "review",
+          "risk_score": 50,
+          "confidence": 0.5,
+          "labels": [],
+          "reason": "",
+          "evidence": [
+            "大家一起",
+            "抵制",
+            "去骂"
+          ],
+          "needs_human_review": true,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": [
+            {
+              "code": "CONFLICT_INCITEMENT",
+              "severity": "high",
+              "message": "命中疑似引战或煝动性表达",
+              "evidence": [
+                "大家一起",
+                "抵制",
+                "去骂",
+                "带节奏"
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "submission_id": "case_012",
+        "decision": "review",
+        "risk_score": 50,
+        "confidence": 0.5,
+        "labels": [],
+        "reason": "",
+        "evidence": [
+          "大家一起",
+          "抵制",
+          "去骂"
+        ],
+        "needs_human_review": true,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": [
+          {
+            "code": "CONFLICT_INCITEMENT",
+            "severity": "high",
+            "message": "命中疑似引战或煝动性表达",
+            "evidence": [
+              "大家一起",
+              "抵制",
+              "去骂",
+              "带节奏"
+            ]
+          }
+        ]
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=review expected in [review,reject]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes [CONFLICT_INCITEMENT]",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=true expected in [true,false]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_013",
+        "category": "emotional_punct",
+        "content": "太离谱了吧！！！？？？",
+        "platform": "weibo",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "review",
+            "reject"
+          ],
+          "must_include_rule_codes": [
+            "REPETITIVE_PUNCT"
+          ],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            true,
+            false
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_013",
+          "content": "太离谱了吧！！！？？？",
+          "platform": "weibo",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_013",
+          "decision": "review",
+          "risk_score": 50,
+          "confidence": 0.5,
+          "labels": [],
+          "reason": "",
+          "evidence": [],
+          "needs_human_review": true,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": [
+            {
+              "code": "REPETITIVE_PUNCT",
+              "severity": "low",
+              "message": "命中强情绪化标点模式",
+              "evidence": [
+                "！！！？？？"
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "submission_id": "case_013",
+        "decision": "review",
+        "risk_score": 50,
+        "confidence": 0.5,
+        "labels": [],
+        "reason": "",
+        "evidence": [],
+        "needs_human_review": true,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": [
+          {
+            "code": "REPETITIVE_PUNCT",
+            "severity": "low",
+            "message": "命中强情绪化标点模式",
+            "evidence": [
+              "！！！？？？"
+            ]
+          }
+        ]
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=review expected in [review,reject]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes [REPETITIVE_PUNCT]",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=true expected in [true,false]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_014",
+        "category": "emotional_punct",
+        "content": "你们到底在干嘛啊？？！！这也能发出来？？？",
+        "platform": "xiaohongshu",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "review",
+            "reject"
+          ],
+          "must_include_rule_codes": [
+            "REPETITIVE_PUNCT"
+          ],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            true,
+            false
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_014",
+          "content": "你们到底在干嘛啊？？！！这也能发出来？？？",
+          "platform": "xiaohongshu",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_014",
+          "decision": "review",
+          "risk_score": 50,
+          "confidence": 0.5,
+          "labels": [],
+          "reason": "",
+          "evidence": [],
+          "needs_human_review": true,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": [
+            {
+              "code": "REPETITIVE_PUNCT",
+              "severity": "low",
+              "message": "命中强情绪化标点模式",
+              "evidence": [
+                "？？！！",
+                "？？？"
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "submission_id": "case_014",
+        "decision": "review",
+        "risk_score": 50,
+        "confidence": 0.5,
+        "labels": [],
+        "reason": "",
+        "evidence": [],
+        "needs_human_review": true,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": [
+          {
+            "code": "REPETITIVE_PUNCT",
+            "severity": "low",
+            "message": "命中强情绪化标点模式",
+            "evidence": [
+              "？？！！",
+              "？？？"
+            ]
+          }
+        ]
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=review expected in [review,reject]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes [REPETITIVE_PUNCT]",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=true expected in [true,false]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_015",
+        "category": "gray_area",
+        "content": "这操作真是高水平呢，谁买谁知道。",
+        "platform": "weibo",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "approve",
+            "review"
+          ],
+          "must_include_rule_codes": [],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            false,
+            true
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_015",
+          "content": "这操作真是高水平呢，谁买谁知道。",
+          "platform": "weibo",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_015",
+          "decision": "approve",
+          "risk_score": 20,
+          "confidence": 0.8,
+          "labels": [],
+          "reason": "普通差评，无明显辱骂、人身攻击、引流等高风险信号。",
+          "evidence": [],
+          "needs_human_review": false,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": []
+        }
+      },
+      "result": {
+        "submission_id": "case_015",
+        "decision": "approve",
+        "risk_score": 20,
+        "confidence": 0.8,
+        "labels": [],
+        "reason": "普通差评，无明显辱骂、人身攻击、引流等高风险信号。",
+        "evidence": [],
+        "needs_human_review": false,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": []
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=approve expected in [approve,review]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes []",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=false expected in [false,true]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_016",
+        "category": "gray_area",
+        "content": "客服这波回复很有艺术感，问题是一个都没解决。",
+        "platform": "douban",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "approve",
+            "review"
+          ],
+          "must_include_rule_codes": [],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            false,
+            true
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_016",
+          "content": "客服这波回复很有艺术感，问题是一个都没解决。",
+          "platform": "douban",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_016",
+          "decision": "approve",
+          "risk_score": 20,
+          "confidence": 0.8,
+          "labels": [],
+          "reason": "普通差评，无明显辱骂、人身攻击、引战、广告引流等高风险信号。",
+          "evidence": [],
+          "needs_human_review": false,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": []
+        }
+      },
+      "result": {
+        "submission_id": "case_016",
+        "decision": "approve",
+        "risk_score": 20,
+        "confidence": 0.8,
+        "labels": [],
+        "reason": "普通差评，无明显辱骂、人身攻击、引战、广告引流等高风险信号。",
+        "evidence": [],
+        "needs_human_review": false,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": []
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=approve expected in [approve,review]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes []",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=false expected in [false,true]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_017",
+        "category": "normal",
+        "content": "价格不是最低，但页面写得挺清楚，买前能判断到位。",
+        "platform": "zhihu",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "approve"
+          ],
+          "must_include_rule_codes": [],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            false,
+            true
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_017",
+          "content": "价格不是最低，但页面写得挺清楚，买前能判断到位。",
+          "platform": "zhihu",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_017",
+          "decision": "approve",
+          "risk_score": 20,
+          "confidence": 0.8,
+          "labels": [],
+          "reason": "普通差评，无明显辱骂、人身攻击、引战、广告引流等高风险信号。",
+          "evidence": [],
+          "needs_human_review": false,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": []
+        }
+      },
+      "result": {
+        "submission_id": "case_017",
+        "decision": "approve",
+        "risk_score": 20,
+        "confidence": 0.8,
+        "labels": [],
+        "reason": "普通差评，无明显辱骂、人身攻击、引战、广告引流等高风险信号。",
+        "evidence": [],
+        "needs_human_review": false,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": []
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=approve expected in [approve]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes []",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=false expected in [false,true]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_018",
+        "category": "negative_feedback",
+        "content": "味道不算差，就是分量偏少，下次不一定会回购。",
+        "platform": "weibo",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "approve",
+            "review"
+          ],
+          "must_include_rule_codes": [],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            false,
+            true
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_018",
+          "content": "味道不算差，就是分量偏少，下次不一定会回购。",
+          "platform": "weibo",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_018",
+          "decision": "approve",
+          "risk_score": 20,
+          "confidence": 0.8,
+          "labels": [],
+          "reason": "普通差评，无明显辱骂、人身攻击、引流等高风险信号。",
+          "evidence": [],
+          "needs_human_review": false,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": []
+        }
+      },
+      "result": {
+        "submission_id": "case_018",
+        "decision": "approve",
+        "risk_score": 20,
+        "confidence": 0.8,
+        "labels": [],
+        "reason": "普通差评，无明显辱骂、人身攻击、引流等高风险信号。",
+        "evidence": [],
+        "needs_human_review": false,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": []
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=approve expected in [approve,review]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes []",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=false expected in [false,true]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_019",
+        "category": "promo_contact",
+        "content": "想领完整版清单就联系我，qq123456，备注来拿资料。",
+        "platform": "weibo",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "review",
+            "reject"
+          ],
+          "must_include_rule_codes": [
+            "PROMO_CONTACT"
+          ],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            true,
+            false
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_019",
+          "content": "想领完整版清单就联系我，qq123456，备注来拿资料。",
+          "platform": "weibo",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_019",
+          "decision": "review",
+          "risk_score": 50,
+          "confidence": 0.5,
+          "labels": [],
+          "reason": "",
+          "evidence": [
+            "想领完整版清单就联系我，qq123456，备注来拿资料。"
+          ],
+          "needs_human_review": true,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": [
+            {
+              "code": "PROMO_CONTACT",
+              "severity": "high",
+              "message": "命中疑似引流或联系方式",
+              "evidence": [
+                "qq",
+                "联系我"
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "submission_id": "case_019",
+        "decision": "review",
+        "risk_score": 50,
+        "confidence": 0.5,
+        "labels": [],
+        "reason": "",
+        "evidence": [
+          "想领完整版清单就联系我，qq123456，备注来拿资料。"
+        ],
+        "needs_human_review": true,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": [
+          {
+            "code": "PROMO_CONTACT",
+            "severity": "high",
+            "message": "命中疑似引流或联系方式",
+            "evidence": [
+              "qq",
+              "联系我"
+            ]
+          }
+        ]
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=review expected in [review,reject]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes [PROMO_CONTACT]",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=true expected in [true,false]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    },
+    {
+      "sample": {
+        "id": "case_020",
+        "category": "abuse",
+        "content": "别装了，这种脑残操作也敢拿出来卖？",
+        "platform": "tieba",
+        "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
+        "expected": {
+          "decision_in": [
+            "review",
+            "reject"
+          ],
+          "must_include_rule_codes": [
+            "ABUSE_WORD"
+          ],
+          "should_have_label_any": [],
+          "needs_human_review_in": [
+            true,
+            false
+          ]
+        }
+      },
+      "request_payload": {
+        "user": {
+          "id": "eval_user_free",
+          "email": "eval@example.com",
+          "plan": "free"
+        },
+        "submission": {
+          "id": "case_020",
+          "content": "别装了，这种脑残操作也敢拿出来卖？",
+          "platform": "tieba",
+          "metadata": {
+            "sourceType": "review_eval"
+          }
+        },
+        "policy": {
+          "rawText": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核"
+        }
+      },
+      "http": {
+        "ok": true,
+        "status": 200
+      },
+      "response_body": {
+        "ok": true,
+        "result": {
+          "submission_id": "case_020",
+          "decision": "review",
+          "risk_score": 50,
+          "confidence": 0.5,
+          "labels": [],
+          "reason": "",
+          "evidence": [
+            "脑残"
+          ],
+          "needs_human_review": true,
+          "model_tier": "free",
+          "model_name": "qwen2.5:7b",
+          "rule_hits": [
+            {
+              "code": "ABUSE_WORD",
+              "severity": "medium",
+              "message": "命中侮辱性词汇",
+              "evidence": [
+                "脑残"
+              ]
+            }
+          ]
+        }
+      },
+      "result": {
+        "submission_id": "case_020",
+        "decision": "review",
+        "risk_score": 50,
+        "confidence": 0.5,
+        "labels": [],
+        "reason": "",
+        "evidence": [
+          "脑残"
+        ],
+        "needs_human_review": true,
+        "model_tier": "free",
+        "model_name": "qwen2.5:7b",
+        "rule_hits": [
+          {
+            "code": "ABUSE_WORD",
+            "severity": "medium",
+            "message": "命中侮辱性词汇",
+            "evidence": [
+              "脑残"
+            ]
+          }
+        ]
+      },
+      "assertion": {
+        "passed": true,
+        "checks": [
+          {
+            "name": "response_ok",
+            "passed": true,
+            "detail": "actual=true expected=true",
+            "failure_reason": "response_not_ok"
+          },
+          {
+            "name": "result_exists",
+            "passed": true,
+            "detail": "actual=present expected=present",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "rule_hits_array",
+            "passed": true,
+            "detail": "actual=object expected=array",
+            "failure_reason": "malformed_result"
+          },
+          {
+            "name": "decision_in",
+            "passed": true,
+            "detail": "actual=review expected in [review,reject]",
+            "failure_reason": "decision_out_of_expected_range"
+          },
+          {
+            "name": "must_include_rule_codes",
+            "passed": true,
+            "detail": "actual includes all expected codes [ABUSE_WORD]",
+            "failure_reason": "missing_rule_codes",
+            "missing_rule_codes": []
+          },
+          {
+            "name": "needs_human_review_in",
+            "passed": true,
+            "detail": "actual=true expected in [true,false]",
+            "failure_reason": "needs_human_review_out_of_range"
+          }
+        ],
+        "failure_reasons": []
+      },
+      "error": null
+    }
+  ]
+}

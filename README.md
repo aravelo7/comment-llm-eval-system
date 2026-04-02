@@ -154,3 +154,101 @@ This mode does not:
 - access private messages
 - upload cookies or passwords
 - bypass login, CAPTCHA, or platform risk controls
+
+## 微博私信 manual_import 导入
+
+功能说明：
+- 新增了合规的“微博私信导入”入口，路径为 `/imports/weibo/manual`
+- 仅支持 `manual_import`
+- 用户上传 `.json` 或 `.csv` 私信导出文件后，后端执行校验、脱敏、审计、标准化，并自动接入现有审核列表
+
+合规边界：
+- 仅处理用户有权处理并主动上传的数据
+- 不支持自动抓取私信
+- 不支持 cookie 提取、密码托管、模拟登录、CAPTCHA bypass、risk-control bypass
+- 日志中不记录私信正文原文，只记录批次号、计数、状态、错误摘要
+
+支持文件格式：
+- `data/samples/weibo_manual_import.json`
+- `data/samples/weibo_manual_import.csv`
+
+导入步骤：
+1. 登录工作台
+2. 进入“微博私信导入”
+3. 勾选三项授权确认
+4. 上传 `.json` 或 `.csv` 文件
+5. 导入完成后点击“进入消息审核列表”查看该批次消息与审核结果
+
+本地测试方式：
+1. 启动后端：在 `backend/auth` 下执行 `node index.js`
+2. 启动前端：在 `frontend` 下执行 `npm run dev`
+3. 使用 `admin@example.com / Admin#2026Demo` 或 `reviewer@example.com / Reviewer#2026Demo` 登录
+4. 打开 `/imports/weibo/manual`
+5. 上传样例文件并查看 `/submissions?jobId=<批次ID>&platform=weibo&channel=private_message`
+
+删除 / 清理方式：
+- 在“微博私信导入”页点击“删除该批次”
+- 系统会级联清理该批次的任务、会话、消息、审核结果与审计记录
+
+## 微博官方连接（official_api 占位）
+
+当前能力：
+- 已提供“连接微博账号”的 OAuth 闭环占位实现
+- 当前版本只保存连接状态，不自动读取私信
+- 若未获 `direct_message:read` 权限，会自动回退到 `manual_import`
+
+环境变量：
+- `WEIBO_OAUTH_ENABLED=false`
+- `WEIBO_APP_KEY=`
+- `WEIBO_APP_SECRET=`
+- `WEIBO_REDIRECT_URI=`
+
+本地测试：
+1. 未配置环境变量时，打开 `/imports/weibo/manual`
+2. 页面顶部会显示“官方 OAuth 未配置”
+3. manual_import 区域仍可继续上传样例 JSON/CSV 文件
+
+如已配置 OAuth：
+1. 将 `WEIBO_OAUTH_ENABLED` 设为 `true`
+2. 配置 `WEIBO_APP_KEY`、`WEIBO_APP_SECRET`、`WEIBO_REDIRECT_URI`
+3. `WEIBO_REDIRECT_URI` 需指向后端回调：`http://127.0.0.1:8787/api/weibo/oauth/callback`
+4. 在导入页点击“连接微博账号”
+5. 授权回调完成后，页面会显示连接状态
+6. 如果未返回 `direct_message:read`，页面会明确提示继续使用 `manual_import`
+
+明确不支持：
+- 密码登录自动化
+- cookie 提取
+- session replay
+- CAPTCHA bypass
+- risk-control bypass
+- 非授权私信同步或读取
+
+## Review Service
+
+仓库现已新增独立 `backend/review` 审稿服务：
+
+- `GET /health`
+- `POST /review/run`
+- `POST /review/policy/test`
+
+模型路由：
+- `plan !== "vip"`：走 Ollama 免费模型
+- `plan === "vip"`：走 VIP 占位 provider
+
+当前默认免费模型为 `qwen2.5:7b`，通过 Ollama 提供。
+VIP 当前仅保留路由占位，不接真实收费模型。
+
+本地启动：
+1. 进入 `backend/review`
+2. 执行 `npm install`
+3. 执行 `npm start`
+
+Docker Compose 已补充：
+- `review`
+- `ollama`
+
+前端联调页：
+- 登录后可访问 `/review-lab`
+- 页面会自动复用 `/auth/me` 恢复的当前用户信息
+- 执行审稿时仅透传 `user.id`、`user.email`、`user.plan`
