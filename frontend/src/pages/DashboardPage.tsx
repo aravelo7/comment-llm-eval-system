@@ -34,13 +34,13 @@ export function DashboardPage() {
         hint: user?.plan === 'vip' ? 'VIP 路由当前仍为占位模型' : '当前走 free 模型路由',
       },
       {
-        title: '最近一次 decision',
-        value: latestResult?.decision || '未执行',
+        title: '最近一次 action',
+        value: latestResult?.action || '未执行',
         hint: latestExecutedAt ? `最近执行：${latestExecutedAt}` : '在首页直接发起一次审稿测试',
       },
       {
-        title: '最近一次 risk_score',
-        value: latestResult ? latestResult.risk_score : '-',
+        title: '最近一次 risk_level',
+        value: latestResult ? latestResult.risk_level : '-',
         hint: latestResult ? `confidence ${latestResult.confidence}` : '执行后自动更新',
       },
     ],
@@ -126,10 +126,10 @@ export function DashboardPage() {
                 最近执行时间：<Typography.Text strong>{latestExecutedAt || '尚未执行'}</Typography.Text>
               </Typography.Text>
               <Typography.Text>
-                最近一次 decision：<Typography.Text strong>{latestResult?.decision || '-'}</Typography.Text>
+                最近一次 action：<Typography.Text strong>{latestResult?.action || '-'}</Typography.Text>
               </Typography.Text>
               <Typography.Text>
-                最近一次 risk_score：<Typography.Text strong>{latestResult ? latestResult.risk_score : '-'}</Typography.Text>
+                最近一次 risk_level：<Typography.Text strong>{latestResult ? latestResult.risk_level : '-'}</Typography.Text>
               </Typography.Text>
               <Typography.Text type="secondary">
                 首页版更适合快速审稿；如需更完整说明和联调视图，请进入“审稿联调”页面。

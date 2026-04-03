@@ -24,16 +24,13 @@ export type ReviewRuleHit = {
 };
 
 export type ReviewLabResult = {
-  submission_id: string;
-  decision: 'approve' | 'reject' | 'review';
-  risk_score: number;
+  label: string;
+  risk_level: 'low' | 'medium' | 'high';
   confidence: number;
-  labels: string[];
+  action: 'allow' | 'review' | 'block';
   reason: string;
   evidence: string[];
   needs_human_review: boolean;
-  model_tier: 'free' | 'vip';
-  model_name: string;
   rule_hits: ReviewRuleHit[];
 };
 

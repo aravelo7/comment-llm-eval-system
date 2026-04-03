@@ -11,10 +11,10 @@ services:
     ports:
       - "8790:8790"
     environment:
-      - REVIEW_PORT=8790
-      - OLLAMA_BASE_URL=http://ollama:11434
-      - FREE_REVIEW_MODEL=qwen2.5:7b
-      - VIP_MODEL_NAME=reserved-premium-model
+      REVIEW_PORT: 8790
+      OLLAMA_BASE_URL: http://ollama:11434
+      OLLAMA_MODEL: qwen2.5:7b
+      REVIEW_MODE: rule_plus_llm
     depends_on:
       - ollama
 
@@ -24,6 +24,7 @@ services:
       - "5173:5173"
     depends_on:
       - auth
+      - review
 
   ollama:
     image: ollama/ollama:latest
