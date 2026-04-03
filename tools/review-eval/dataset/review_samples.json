@@ -1,262 +1,163 @@
 [
   {
-    "id": "case_001",
-    "category": "normal",
-    "content": "发货速度挺快，包装也还行。",
+    "id": "s1",
+    "text": "这个体验还可以，至少没有踩雷。",
     "platform": "weibo",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["approve"],
-      "must_include_rule_codes": [],
-      "should_have_label_any": [],
-      "needs_human_review_in": [false, true]
-    }
+    "expected_label": "normal",
+    "expected_action": "allow",
+    "expected_risk_level": "low"
   },
   {
-    "id": "case_002",
-    "category": "normal",
-    "content": "整体中规中矩，没什么惊喜，也没踩雷。",
-    "platform": "xiaohongshu",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["approve"],
-      "must_include_rule_codes": [],
-      "should_have_label_any": [],
-      "needs_human_review_in": [false, true]
-    }
-  },
-  {
-    "id": "case_003",
-    "category": "negative_feedback",
-    "content": "产品一般，做工不太值这个价。",
+    "id": "s2",
+    "text": "包装完整，发货也挺快。",
     "platform": "weibo",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["approve", "review"],
-      "must_include_rule_codes": [],
-      "should_have_label_any": [],
-      "needs_human_review_in": [false, true]
-    }
+    "expected_label": "normal",
+    "expected_action": "allow",
+    "expected_risk_level": "low"
   },
   {
-    "id": "case_004",
-    "category": "negative_feedback",
-    "content": "客服回复有点慢，售后体验不太好，但问题最后解决了。",
-    "platform": "douban",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["approve", "review"],
-      "must_include_rule_codes": [],
-      "should_have_label_any": [],
-      "needs_human_review_in": [false, true]
-    }
-  },
-  {
-    "id": "case_005",
-    "category": "abuse",
-    "content": "这个产品真垃圾，客服像死人一样，大家别买了。",
+    "id": "s3",
+    "text": "说明写得比较清楚，整体正常。",
     "platform": "weibo",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["review", "reject"],
-      "must_include_rule_codes": ["ABUSE_WORD"],
-      "should_have_label_any": [],
-      "needs_human_review_in": [true, false]
-    }
+    "expected_label": "normal",
+    "expected_action": "allow",
+    "expected_risk_level": "low"
   },
   {
-    "id": "case_006",
-    "category": "abuse",
-    "content": "你们这客服是废物吧，解释半天也没一句人话。",
-    "platform": "bilibili",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["review", "reject"],
-      "must_include_rule_codes": ["ABUSE_WORD"],
-      "should_have_label_any": [],
-      "needs_human_review_in": [true, false]
-    }
-  },
-  {
-    "id": "case_007",
-    "category": "promo_contact",
-    "content": "加我微信聊，vx:abc123，有资源。",
+    "id": "s4",
+    "text": "这个产品太烂了。",
     "platform": "weibo",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["review", "reject"],
-      "must_include_rule_codes": ["PROMO_CONTACT"],
-      "should_have_label_any": [],
-      "needs_human_review_in": [true, false]
-    }
+    "expected_label": "negative_feedback",
+    "expected_action": "allow",
+    "expected_risk_level": "low",
+    "notes": "普通负面反馈，不应误杀为 abuse"
   },
   {
-    "id": "case_008",
-    "category": "promo_contact",
-    "content": "想进群的私聊我，微信同号，给你发优惠信息。",
-    "platform": "tieba",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["review", "reject"],
-      "must_include_rule_codes": ["PROMO_CONTACT"],
-      "should_have_label_any": [],
-      "needs_human_review_in": [true, false]
-    }
-  },
-  {
-    "id": "case_009",
-    "category": "external_link",
-    "content": "详情看 www.example.com，写得比这里清楚。",
+    "id": "s5",
+    "text": "体验很差，服务太慢了。",
     "platform": "weibo",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["review", "reject"],
-      "must_include_rule_codes": ["EXTERNAL_LINK"],
-      "should_have_label_any": [],
-      "needs_human_review_in": [true, false]
-    }
+    "expected_label": "negative_feedback",
+    "expected_action": "allow",
+    "expected_risk_level": "low"
   },
   {
-    "id": "case_010",
-    "category": "external_link",
-    "content": "官方说明在 https://help.example.cn/notice，建议先看看。",
-    "platform": "zhihu",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["review", "reject"],
-      "must_include_rule_codes": ["EXTERNAL_LINK"],
-      "should_have_label_any": [],
-      "needs_human_review_in": [true, false]
-    }
-  },
-  {
-    "id": "case_011",
-    "category": "conflict_incitement",
-    "content": "大家一起去冲他，给我狠狠骂，别让他装没事。",
+    "id": "s6",
+    "text": "不好用，不推荐购买。",
     "platform": "weibo",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["review", "reject"],
-      "must_include_rule_codes": ["CONFLICT_INCITEMENT"],
-      "should_have_label_any": [],
-      "needs_human_review_in": [true, false]
-    }
+    "expected_label": "negative_feedback",
+    "expected_action": "allow",
+    "expected_risk_level": "low"
   },
   {
-    "id": "case_012",
-    "category": "conflict_incitement",
-    "content": "这号一直带节奏，大家一起抵制，去骂到他删帖。",
-    "platform": "tieba",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["review", "reject"],
-      "must_include_rule_codes": ["CONFLICT_INCITEMENT"],
-      "should_have_label_any": [],
-      "needs_human_review_in": [true, false]
-    }
-  },
-  {
-    "id": "case_013",
-    "category": "emotional_punct",
-    "content": "太离谱了吧！！！？？？",
+    "id": "s7",
+    "text": "有点失望，价格和质量不太匹配。",
     "platform": "weibo",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["review", "reject"],
-      "must_include_rule_codes": ["REPETITIVE_PUNCT"],
-      "should_have_label_any": [],
-      "needs_human_review_in": [true, false]
-    }
+    "expected_label": "negative_feedback",
+    "expected_action": "allow",
+    "expected_risk_level": "low"
   },
   {
-    "id": "case_014",
-    "category": "emotional_punct",
-    "content": "你们到底在干嘛啊？？！！这也能发出来？？？",
-    "platform": "xiaohongshu",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["review", "reject"],
-      "must_include_rule_codes": ["REPETITIVE_PUNCT"],
-      "should_have_label_any": [],
-      "needs_human_review_in": [true, false]
-    }
-  },
-  {
-    "id": "case_015",
-    "category": "gray_area",
-    "content": "这操作真是高水平呢，谁买谁知道。",
+    "id": "s8",
+    "text": "你这个废物。",
     "platform": "weibo",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["approve", "review"],
-      "must_include_rule_codes": [],
-      "should_have_label_any": [],
-      "needs_human_review_in": [false, true]
-    }
+    "expected_label": "abuse",
+    "expected_action": "review",
+    "expected_risk_level": "medium"
   },
   {
-    "id": "case_016",
-    "category": "gray_area",
-    "content": "客服这波回复很有艺术感，问题是一个都没解决。",
-    "platform": "douban",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["approve", "review"],
-      "must_include_rule_codes": [],
-      "should_have_label_any": [],
-      "needs_human_review_in": [false, true]
-    }
-  },
-  {
-    "id": "case_017",
-    "category": "normal",
-    "content": "价格不是最低，但页面写得挺清楚，买前能判断到位。",
-    "platform": "zhihu",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["approve"],
-      "must_include_rule_codes": [],
-      "should_have_label_any": [],
-      "needs_human_review_in": [false, true]
-    }
-  },
-  {
-    "id": "case_018",
-    "category": "negative_feedback",
-    "content": "味道不算差，就是分量偏少，下次不一定会回购。",
+    "id": "s9",
+    "text": "滚，别来恶心人。",
     "platform": "weibo",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["approve", "review"],
-      "must_include_rule_codes": [],
-      "should_have_label_any": [],
-      "needs_human_review_in": [false, true]
-    }
+    "expected_label": "abuse",
+    "expected_action": "review",
+    "expected_risk_level": "medium"
   },
   {
-    "id": "case_019",
-    "category": "promo_contact",
-    "content": "想领完整版清单就联系我，qq123456，备注来拿资料。",
+    "id": "s10",
+    "text": "脑残操作，真看不下去。",
     "platform": "weibo",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["review", "reject"],
-      "must_include_rule_codes": ["PROMO_CONTACT"],
-      "should_have_label_any": [],
-      "needs_human_review_in": [true, false]
-    }
+    "expected_label": "abuse",
+    "expected_action": "review",
+    "expected_risk_level": "medium"
   },
   {
-    "id": "case_020",
-    "category": "abuse",
-    "content": "别装了，这种脑残操作也敢拿出来卖？",
-    "platform": "tieba",
-    "policy_raw_text": "允许普通差评，但辱骂、人身攻击、引战、广告引流要重点拦截；不确定就人工复核",
-    "expected": {
-      "decision_in": ["review", "reject"],
-      "must_include_rule_codes": ["ABUSE_WORD"],
-      "should_have_label_any": [],
-      "needs_human_review_in": [true, false]
-    }
+    "id": "s11",
+    "text": "加我微信，vx: abc123。",
+    "platform": "weibo",
+    "expected_label": "promo_contact",
+    "expected_action": "block",
+    "expected_risk_level": "high"
+  },
+  {
+    "id": "s12",
+    "text": "想要完整资料就私聊我，加v发你。",
+    "platform": "weibo",
+    "expected_label": "promo_contact",
+    "expected_action": "block",
+    "expected_risk_level": "high"
+  },
+  {
+    "id": "s13",
+    "text": "联系我领取优惠，微信同号。",
+    "platform": "weibo",
+    "expected_label": "promo_contact",
+    "expected_action": "block",
+    "expected_risk_level": "high"
+  },
+  {
+    "id": "s14",
+    "text": "详情见 https://example.com。",
+    "platform": "weibo",
+    "expected_label": "external_link",
+    "expected_action": "block",
+    "expected_risk_level": "high"
+  },
+  {
+    "id": "s15",
+    "text": "完整说明在 www.example.cn 页面里。",
+    "platform": "weibo",
+    "expected_label": "external_link",
+    "expected_action": "block",
+    "expected_risk_level": "high"
+  },
+  {
+    "id": "s16",
+    "text": "公告地址是 http://demo.example.org/notice。",
+    "platform": "weibo",
+    "expected_label": "external_link",
+    "expected_action": "block",
+    "expected_risk_level": "high"
+  },
+  {
+    "id": "s17",
+    "text": "大家一起骂他，冲了他。",
+    "platform": "weibo",
+    "expected_label": "conflict_incitement",
+    "expected_action": "block",
+    "expected_risk_level": "high"
+  },
+  {
+    "id": "s18",
+    "text": "去网暴他，曝光他，看他还敢不敢。",
+    "platform": "weibo",
+    "expected_label": "conflict_incitement",
+    "expected_action": "block",
+    "expected_risk_level": "high"
+  },
+  {
+    "id": "s19",
+    "text": "这波操作真有水平，懂的都懂。",
+    "platform": "weibo",
+    "expected_label": "gray_area",
+    "expected_action": "review",
+    "expected_risk_level": "medium"
+  },
+  {
+    "id": "s20",
+    "text": "你这回复挺有艺术感，就是一句有用的都没有。",
+    "platform": "weibo",
+    "expected_label": "gray_area",
+    "expected_action": "review",
+    "expected_risk_level": "medium"
   }
 ]

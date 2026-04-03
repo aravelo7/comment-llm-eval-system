@@ -1,46 +1,189 @@
-# Bot 审核工作台
+# comment-llm-eval-system
 
-这是一个多平台 bot 审核工作台原型仓库。
+这是一个用于评论审核联调的最小工作台仓库，当前已经具备以下能力：
 
-当前仓库已包含：
-- 多平台统一内容模型与审核工作台
-- 第一阶段 mock 数据与规则演示
-- 最小可用的本地鉴权后端
+- `frontend`：Review Lab 工作台和基础审核页面
+- `backend/auth`：本地最小鉴权服务
+- `backend/review`：审核服务
+- `rule engine`：规则初筛
+- `Ollama`：本地 LLM 复审
+- `fallback`：Ollama 不可用时自动降级
 
-## 本地开发启动
+## 当前系统能力
 
-后端：
+当前审核链路为：
 
-```bash
-node server/index.js
+1. 前端调用 `/review/run`
+2. `backend/review` 先执行规则引擎
+3. 若开启 `rule_plus_llm`，再调用 Ollama 复审
+4. 若 Ollama 不可用、未拉模型、超时或返回非法 JSON，则自动降级到 `rule_fallback`
+
+当前主要服务：
+
+- `auth`：登录、登出、会话恢复
+- `review`：健康检查、规则审核、Ollama 复审、fallback
+- `frontend`：Review Lab、快速审核、基础工作台
+- `ollama`：本地模型服务
+
+## 审核模式说明
+
+- `rule_only`
+  只执行规则引擎，不调用 LLM。
+- `rule_plus_llm`
+  先执行规则，再调用 Ollama 复审。
+- `rule_fallback`
+  当 Ollama 不可用、模型未拉取、接口失败或解析失败时，自动回退到规则结果。
+
+## 本地开发模式
+
+本地开发模式下，前端 Vite 代理默认使用：
+
+- `/auth -> http://127.0.0.1:8787`
+- `/review -> http://127.0.0.1:8790`
+
+### 1. 启动 auth
+
+```powershell
+cd backend/auth
+cmd /c npm install
+cmd /c npm start
 ```
 
-默认监听 `http://127.0.0.1:8787`。
+默认监听：
 
-前端：
+- `http://127.0.0.1:8787`
 
-```bash
-npm run dev
+默认演示账号：
+
+- `admin@example.com / Admin#2026Demo`
+- `reviewer@example.com / Reviewer#2026Demo`
+
+### 2. 启动 review
+
+```powershell
+cd backend/review
+cmd /c npm install
+cmd /c npm start
 ```
 
-通过 `http://127.0.0.1:5173` 访问前端。
+默认监听：
 
-本地开发默认前端认证模式为 `api`。鉴权请求建议保持相对路径，由 Vite 代理 `/auth` 与 `/health` 到后端。
+- `http://127.0.0.1:8790`
 
-如需保留纯前端 mock 模式，可设置：
+如需本地接 Ollama，可设置：
 
-```bash
-VITE_AUTH_MODE=mock
+```powershell
+$env:OLLAMA_BASE_URL="http://127.0.0.1:11434"
+$env:OLLAMA_MODEL="qwen2.5:7b"
+$env:REVIEW_MODE="rule_plus_llm"
+cmd /c npm start
 ```
 
-## 开发环境排障
+### 3. 启动 frontend
 
-- 如果 `localhost` 曾出现 `431 Request Header Fields Too Large`，请改用 `127.0.0.1` 访问，并清理浏览器里 `localhost` 的站点数据和 cookie。
-- 本地开发不要混用 `localhost` 与 `127.0.0.1`，否则基于 cookie session 的 `/auth/me` 身份恢复会不稳定。
+```powershell
+cd frontend
+cmd /c npm install
+cmd /c npm run dev
+```
+
+默认访问：
+
+- `http://127.0.0.1:5173`
+
+本地开发默认不必额外配置 `VITE_RUNTIME_ENV`。如果需要显式声明，可参考：
+
+- [frontend/.env.example](/D:/Projects/comment-llm-eval-system/frontend/.env.example)
+
+## Docker 模式
+
+Docker 模式下，前端会自动通过 `VITE_RUNTIME_ENV=docker` 切换代理目标：
+
+- `/auth -> http://auth:8787`
+- `/review -> http://review:8790`
+
+容器服务说明：
+
+- `frontend`：Vite 开发服务器
+- `auth`：鉴权服务
+- `review`：审核服务
+- `ollama`：本地模型服务
+
+### 启动方式
+
+```powershell
+docker compose up --build
+```
+
+启动后默认端口：
+
+- `frontend: 5173`
+- `auth: 8787`
+- `review: 8790`
+- `ollama: 11434`
+
+## Ollama 模型拉取
+
+应用代码不会自动拉模型。首次启动后请手动执行：
+
+```powershell
+docker compose exec ollama ollama pull qwen2.5:7b
+```
+
+如果机器资源较弱，可以换更小模型，但需要同步修改：
+
+- `docker-compose.yml` 中的 `OLLAMA_MODEL`
+- 或本地环境变量 `OLLAMA_MODEL`
+
+## 常用验证
+
+### health
+
+```powershell
+curl http://127.0.0.1:8790/health
+```
+
+### review
+
+```powershell
+curl -X POST http://127.0.0.1:8790/review/run ^
+  -H "Content-Type: application/json" ^
+  -d "{\"text\":\"这个产品太烂了，但是也许还能接受\",\"platform\":\"weibo\",\"plan\":\"free\"}"
+```
+
+### fallback 验证
+
+在 Ollama 未启动、未拉模型或故意写错 `OLLAMA_BASE_URL` 时，`/review/run` 仍应返回：
+
+- `ok: true`
+- `meta.mode = "rule_fallback"`
+- `meta.provider = "fallback"`
+- `meta.fallback_used = true`
+
+## Troubleshooting
+
+- 不要混用 `localhost` 和 `127.0.0.1`。
+  本地联调建议统一使用 `127.0.0.1`，避免 cookie 和代理行为不稳定。
+- Docker 模式下不要把 `127.0.0.1` 当作容器间服务地址。
+  在容器内，`127.0.0.1` 指向当前容器自身；容器间通信必须使用 `auth`、`review`、`ollama` 这类 service name。
+- 如果 Ollama 未拉模型，review 服务可能进入 `rule_fallback`。
+  先执行 `docker compose exec ollama ollama pull qwen2.5:7b`。
+- 如果 `/review/run` 报代理错误，先检查：
+  1. `frontend/vite.config.ts`
+  2. `docker-compose.yml`
+  3. `docker compose ps`
+
+## Review Lab
+
+登录后可访问：
+
+- `/review-lab`
+
+Review Lab 当前会复用 `/auth/me` 恢复的用户信息，并调用 `/review/run` 展示审核结果。
 
 ## 最小鉴权接口
 
-当前后端已实现：
+当前 `backend/auth` 已实现：
 
 - `POST /auth/login`
 - `POST /auth/logout`
@@ -48,44 +191,14 @@ VITE_AUTH_MODE=mock
 - `POST /auth/register`
 - `POST /auth/forgot-password`
 
-默认演示账号：
-
-- `admin@example.com / Admin#2026Demo`
-- `reviewer@example.com / Reviewer#2026Demo`
-
 说明：
 
 - 后端使用 `cookie session`
 - session cookie 为 `httpOnly`
 - 前端不直接读取敏感 cookie
-- 前端通过 `/auth/me` 恢复身份
+- 前端通过 `/auth/me` 恢复登录状态
 
-## 当前用户模型
-
-后端真实返回以下最小字段：
-
-- `id`
-- `email`
-- `nickname`
-- `role`
-- `plan`
-- `status`
-- `createdAt`
-- `updatedAt`
-
-其中：
-
-- `role` 用于后续权限体系扩展
-- `plan` 用于后续免费模型 / 付费模型路由依据
-
-## 当前可演示内容
-
-- `/login`：真实登录、登出、会话恢复
-- `/submissions`：多平台统一审核列表
-- `/rules`：规则作用域与规则效果预览
-- `/settings`：当前用户邮箱、昵称、角色、套餐、账号状态
-
-## 当前安全边界
+## 合规边界
 
 当前仓库明确不支持，也不会实现以下能力：
 
@@ -96,159 +209,55 @@ VITE_AUTH_MODE=mock
 - 反爬规避脚本
 - 窃取平台登录态
 
-真实接入只能基于官方接口、用户授权导出、人工导入或后端受控同步。
+真实接入只能基于：
+
+- 官方接口
+- 用户授权导出
+- 人工导入
+- 后端受控同步
 
 ## Weibo Official Access Compliance
 
-This repository now includes a compliance-first `WeiboPlugin` skeleton for authorized access only.
+This repository includes a compliance-first Weibo integration boundary for authorized access only.
 
-- Supported access modes for Weibo: `official_api`, `manual_import`, `web_session_import`
-- Public comments:
-  Requires official OAuth consent and official API capability granted by the Weibo open platform.
-- Private messages:
-  May use automatic ingestion only when the official platform explicitly grants direct-message read permission.
-  If that permission is unavailable, expired, or not approved, private-message ingestion must fall back to `manual_import`.
-- Visible web comments:
-  The project also supports `web_session_import` for Weibo public comments only.
-  This mode is limited to comments already visible on the user’s currently opened page in their own browser session.
+Supported access modes:
 
-### Official-permission dependency
+- `official_api`
+- `manual_import`
+- `web_session_import`
 
-- `comment:read`
-  Required for official comment ingestion.
-- `direct_message:read`
-  Required before any automatic private-message ingestion can be enabled.
+Public comments:
 
-### Explicitly unsupported
+- require official OAuth consent and corresponding open-platform capability
 
-- Cookie extraction
-- Password login automation
-- Session replay
-- CAPTCHA bypass
-- Risk-control bypass
-- Non-authorized private-message collection
-- Backend-side crawling of Weibo web pages
-- Cookie copy/paste login
+Private messages:
 
-### Manual import fallback for private messages
+- automatic ingestion is allowed only when the official platform explicitly grants direct-message read permission
+- otherwise must fall back to `manual_import`
 
-The compliant fallback path is:
+Explicitly unsupported:
 
-1. The user or operator exports data only from an officially permitted source.
-2. Backend services validate authorization scope, time range, and file format.
-3. Backend services redact and audit the imported dataset.
-4. The normalized records enter the shared review pipeline through the manual-import path.
-
-### Web session import boundary
-
-`web_session_import` is limited to the following workflow:
-
-1. The authorized user opens a Weibo page in their own browser.
-2. The user manually runs the provided collection script against the currently visible page.
-3. The script extracts only comments already present in the current DOM.
-4. The user pastes the resulting JSON back into the review workbench for import.
-
-This mode does not:
-
-- crawl additional pages
-- access private messages
-- upload cookies or passwords
-- bypass login, CAPTCHA, or platform risk controls
-
-## 微博私信 manual_import 导入
-
-功能说明：
-- 新增了合规的“微博私信导入”入口，路径为 `/imports/weibo/manual`
-- 仅支持 `manual_import`
-- 用户上传 `.json` 或 `.csv` 私信导出文件后，后端执行校验、脱敏、审计、标准化，并自动接入现有审核列表
-
-合规边界：
-- 仅处理用户有权处理并主动上传的数据
-- 不支持自动抓取私信
-- 不支持 cookie 提取、密码托管、模拟登录、CAPTCHA bypass、risk-control bypass
-- 日志中不记录私信正文原文，只记录批次号、计数、状态、错误摘要
-
-支持文件格式：
-- `data/samples/weibo_manual_import.json`
-- `data/samples/weibo_manual_import.csv`
-
-导入步骤：
-1. 登录工作台
-2. 进入“微博私信导入”
-3. 勾选三项授权确认
-4. 上传 `.json` 或 `.csv` 文件
-5. 导入完成后点击“进入消息审核列表”查看该批次消息与审核结果
-
-本地测试方式：
-1. 启动后端：在 `backend/auth` 下执行 `node index.js`
-2. 启动前端：在 `frontend` 下执行 `npm run dev`
-3. 使用 `admin@example.com / Admin#2026Demo` 或 `reviewer@example.com / Reviewer#2026Demo` 登录
-4. 打开 `/imports/weibo/manual`
-5. 上传样例文件并查看 `/submissions?jobId=<批次ID>&platform=weibo&channel=private_message`
-
-删除 / 清理方式：
-- 在“微博私信导入”页点击“删除该批次”
-- 系统会级联清理该批次的任务、会话、消息、审核结果与审计记录
-
-## 微博官方连接（official_api 占位）
-
-当前能力：
-- 已提供“连接微博账号”的 OAuth 闭环占位实现
-- 当前版本只保存连接状态，不自动读取私信
-- 若未获 `direct_message:read` 权限，会自动回退到 `manual_import`
-
-环境变量：
-- `WEIBO_OAUTH_ENABLED=false`
-- `WEIBO_APP_KEY=`
-- `WEIBO_APP_SECRET=`
-- `WEIBO_REDIRECT_URI=`
-
-本地测试：
-1. 未配置环境变量时，打开 `/imports/weibo/manual`
-2. 页面顶部会显示“官方 OAuth 未配置”
-3. manual_import 区域仍可继续上传样例 JSON/CSV 文件
-
-如已配置 OAuth：
-1. 将 `WEIBO_OAUTH_ENABLED` 设为 `true`
-2. 配置 `WEIBO_APP_KEY`、`WEIBO_APP_SECRET`、`WEIBO_REDIRECT_URI`
-3. `WEIBO_REDIRECT_URI` 需指向后端回调：`http://127.0.0.1:8787/api/weibo/oauth/callback`
-4. 在导入页点击“连接微博账号”
-5. 授权回调完成后，页面会显示连接状态
-6. 如果未返回 `direct_message:read`，页面会明确提示继续使用 `manual_import`
-
-明确不支持：
-- 密码登录自动化
-- cookie 提取
+- cookie extraction
+- password login automation
 - session replay
 - CAPTCHA bypass
 - risk-control bypass
-- 非授权私信同步或读取
+- non-authorized private-message collection
+- backend-side crawling of Weibo web pages
+- cookie copy/paste login
 
-## Review Service
+### Manual import boundary
 
-仓库现已新增独立 `backend/review` 审稿服务：
+1. 用户或操作员仅从合规来源导出数据
+2. 后端校验授权范围、时间范围和文件格式
+3. 后端执行脱敏与审计
+4. 标准化后的记录进入共享审核链路
 
-- `GET /health`
-- `POST /review/run`
-- `POST /review/policy/test`
+### Web session import boundary
 
-模型路由：
-- `plan !== "vip"`：走 Ollama 免费模型
-- `plan === "vip"`：走 VIP 占位 provider
+`web_session_import` 仅限：
 
-当前默认免费模型为 `qwen2.5:7b`，通过 Ollama 提供。
-VIP 当前仅保留路由占位，不接真实收费模型。
-
-本地启动：
-1. 进入 `backend/review`
-2. 执行 `npm install`
-3. 执行 `npm start`
-
-Docker Compose 已补充：
-- `review`
-- `ollama`
-
-前端联调页：
-- 登录后可访问 `/review-lab`
-- 页面会自动复用 `/auth/me` 恢复的当前用户信息
-- 执行审稿时仅透传 `user.id`、`user.email`、`user.plan`
+1. 用户在自己的浏览器中打开微博页面
+2. 用户手动运行提供的采集脚本
+3. 脚本只提取当前 DOM 中已可见的评论
+4. 用户将结果手动粘贴回工作台
